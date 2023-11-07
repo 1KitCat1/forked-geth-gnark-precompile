@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  boot:
+    hostname: boot
+    build:
+      context: ..
+    command: init /root/.ethereum/genesis.json
+    volumes:
+      - geth-data:/root/.ethereum
+      - ./genesis.json:/root/.ethereum/genesis.json
+  geth:
+    depends_on:
+      boot:
+        condition: service_completed_successfully
+    build:
+      context: ..
+    ports:
+      - "8545:8545"
+    command:
+      --http
+      --http.port 8545
+      --http.addr "0.0.0.0"
+      --http.corsdomain "*"
+      --http.api "net,eth,web3,miner,personal,admin,shh,debug,txpool"
+      --ws
+      --ws.addr 0.0.0.0
+      --ws.api "net,eth,web3,miner,personal,admin,shh,debug,txpool"
+      --ws.origins "*"
+      --http.vhosts "*"
+      --snapshot=false
+      --password /root/account/password
+      --allow-insecure-unlock
+      --unlock 0x2EA61282D01DAE3849315d0a64bdF7FBaDe5960d
+      --cache 2048
+      --networkid 234
+      --maxpeers 0
+      --nodiscover
+      --mine
+      --miner.etherbase 0x2EA61282D01DAE3849315d0a64bdF7FBaDe5960d
+    volumes:
+      - geth-data:/root/.ethereum
+      - ./node1/keystore:/root/.ethereum/keystore
+      - ./account/password:/root/account/password
+
+volumes:
+  geth-data:
