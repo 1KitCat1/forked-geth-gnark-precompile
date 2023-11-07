@@ -3,7 +3,7 @@
 Ethereum already has 9 in-built precompiled contracts. In this fork, the precompiled contract for *Groth16* proof verification is the 10th address. Usage example (*Solidity*):
 ```solidity
 function verifier(bytes memory input) external {
-	(bool ok, bytes memory out) = address(10).staticcall(input);
+  (bool ok, bytes memory out) = address(10).staticcall(input);
   require(ok, "Failed to make a static call");
   string memory result = string(out);
 }
