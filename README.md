@@ -11,19 +11,14 @@ function verifier(bytes memory input) external {
 
 Note that the input is a serialized proof. Considering the peculiarities of the Ethereum precompiled contracts, mainly that input is brought into the function in the form of an array of bytes, it is necessary to have an efficient serialization mechanism to pass several arguments in one input.
 
-**Type**  /  **Data**
-
-***uint16***  Elliptic curve ID
-
-***uint32***  Length of public witness
-
-***bytes***   Public witness
-
-***uint32***  Length of the proof
-
-***bytes***   Proof
-
-***bytes***   Verifier key
+|**Type**  |      **Data**       |
+|----------|----------------------|
+|***uint16*** |  Elliptic curve ID|
+|***uint32*** |  Length of public witness |
+|***bytes*** |   Public witness |
+|***uint32*** |  Length of the proof |
+|***bytes*** |   Proof |
+|***bytes*** |   Verifier key |
 
 
 
